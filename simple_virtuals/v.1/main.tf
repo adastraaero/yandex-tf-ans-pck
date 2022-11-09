@@ -9,12 +9,12 @@ terraform {
 
 
 provider "yandex" {
-  token     = "AQAAAAAAjZ8hAATuwZffBhgv_UDVtOb-lDno6-4" # *OAuth-токен яндекса*
+  token     = "********************************************" # *OAuth-токен яндекса*
 	# не обязательный параметр (берется облако по умолчанию),
 	# хотя в документации написано иначе
-  cloud_id  = "b1gtiaf7phq3prgm1q7i"
-  folder_id = "b1gl9g5f46b3fv1g4ac1"
-  zone      = "ru-central1-a"
+  cloud_id  = "**********************"
+  folder_id = "**************"
+  zone      = "******"
 }
 
 data "yandex_compute_image" "last_ubuntu" {

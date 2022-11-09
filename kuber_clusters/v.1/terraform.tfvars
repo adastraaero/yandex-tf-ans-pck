@@ -1,6 +1,0 @@
-service_account_key_file = "/home/mity/Documents/OtusDevops/terraform.json"
-cloud_id = "b1gtiaf7phq3prgm1q7i"
-folder_id = "b1gl9g5f46b3fv1g4ac1"
-subnet_id = "e9bc19cu3vl8fknf5mn6"
-network_id = "enpnsn67v3aifn4u4vhi"
-service_account_id = "ajej5trdjqevti9lglpl"
