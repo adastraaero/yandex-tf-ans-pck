@@ -1,0 +1,6 @@
+service_account_key_file = "***************************/terraform.json"
+cloud_id = "111111111111111111111111111111111"
+folder_id = "2222222222222222222222"
+subnet_id = "333333333333333333333"
+network_id = "333333"
+service_account_id = "5555555555555"
