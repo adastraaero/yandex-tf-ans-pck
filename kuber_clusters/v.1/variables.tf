@@ -1,39 +1,39 @@
-variable cloud_id {
+variable "cloud_id" {
   description = "Cloud"
 }
-variable folder_id {
+variable "folder_id" {
   description = "Folder"
 }
-variable zone {
+variable "zone" {
   description = "Zone"
   # Значение по умолчанию
   default = "ru-central1-a"
 }
-variable subnet_id {
+variable "subnet_id" {
   description = "Subnet"
 }
-variable service_account_key_file {
+variable "service_account_key_file" {
   description = "key.json"
 }
-variable count_instance {
+variable "count_instance" {
   # кол-во создаваемых инстансов
   default = "2"
 }
-variable network_id {
+variable "network_id" {
   description = "Network id"
 }
-variable service_account_id {
+variable "service_account_id" {
   description = "Service account ID"
 }
-variable cores {
+variable "cores" {
   description = "nodes cores"
   default     = 4
 }
-variable memory {
+variable "memory" {
   description = "nodes memories"
   default     = 8
 }
-variable size {
+variable "size" {
   description = "nodes sizes"
   default     = 64
 }

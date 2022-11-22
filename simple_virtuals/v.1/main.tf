@@ -9,20 +9,20 @@ terraform {
 
 
 provider "yandex" {
-  token     = "********************************************" # *OAuth-токен яндекса*
-	# не обязательный параметр (берется облако по умолчанию),
-	# хотя в документации написано иначе
+  token = "********************************************" # *OAuth-токен яндекса*
+  # не обязательный параметр (берется облако по умолчанию),
+  # хотя в документации написано иначе
   cloud_id  = "**********************"
   folder_id = "**************"
   zone      = "******"
 }
 
 data "yandex_compute_image" "last_ubuntu" {
-  family = "ubuntu-2204-lts"  # ОС (Ubuntu, 22.04 LTS)
+  family = "ubuntu-2204-lts" # ОС (Ubuntu, 22.04 LTS)
 }
 
 data "yandex_vpc_subnet" "default_a" {
-  name = "default-ru-central1-a"  # одна из дефолтных подсетей
+  name = "default-ru-central1-a" # одна из дефолтных подсетей
 }
 
 
@@ -30,14 +30,14 @@ data "yandex_vpc_subnet" "default_a" {
 
 # ресурс "yandex_compute_instance" т.е. сервер
 # Terraform будет знаеть его по имени "yandex_compute_instance.default"
-resource "yandex_compute_instance" "default" { 
-  name = "test-instance"
-	platform_id = "standard-v1" # тип процессора (Intel Broadwell)
+resource "yandex_compute_instance" "default" {
+  name        = "test-instance"
+  platform_id = "standard-v1" # тип процессора (Intel Broadwell)
 
   resources {
     core_fraction = 5 # Гарантированная доля vCPU
-    cores  = 2 # vCPU
-    memory = 1 # RAM
+    cores         = 2 # vCPU
+    memory        = 1 # RAM
   }
 
   metadata = {
@@ -52,7 +52,7 @@ resource "yandex_compute_instance" "default" {
 
   network_interface {
     subnet_id = data.yandex_vpc_subnet.default_a.subnet_id
-    nat = true # автоматически установить динамический ip
+    nat       = true # автоматически установить динамический ip
   }
 }
 

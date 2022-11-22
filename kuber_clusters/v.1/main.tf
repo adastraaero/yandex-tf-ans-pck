@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     yandex = {
-      source = "yandex-cloud/yandex"
+      source  = "yandex-cloud/yandex"
       version = "0.60.0"
     }
   }
@@ -30,14 +30,14 @@ resource "yandex_kubernetes_cluster" "k8s-cluster" {
   service_account_id      = var.service_account_id
   node_service_account_id = var.service_account_id
 
-  release_channel = "RAPID"
+  release_channel         = "RAPID"
   network_policy_provider = "CALICO"
 }
 
 resource "yandex_kubernetes_node_group" "k8s-node" {
   cluster_id = yandex_kubernetes_cluster.k8s-cluster.id
   version    = "1.21"
-  name = "k8s-node"
+  name       = "k8s-node"
 
   instance_template {
 
@@ -47,10 +47,10 @@ resource "yandex_kubernetes_node_group" "k8s-node" {
     }
 
     network_interface {
-    subnet_ids = ["e9bc19cu3vl8fknf5mn6"]
-    nat = true
-  }
-    
+      subnet_ids = ["e9bc19cu3vl8fknf5mn6"]
+      nat        = true
+    }
+
 
     boot_disk {
       type = "network-ssd"
@@ -63,7 +63,7 @@ resource "yandex_kubernetes_node_group" "k8s-node" {
   }
 
   scale_policy {
-	#Ключ fixed_scale определяет группу ВМ фиксированного размера. Размер группы определяется в ключе size
+    #Ключ fixed_scale определяет группу ВМ фиксированного размера. Размер группы определяется в ключе size
     fixed_scale {
       size = 2
     }
