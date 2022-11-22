@@ -1,10 +1,10 @@
 # yandex-tf-ans-pck
-# В этой репе пишу для себя простые примера кода для terraform/ansible/packer/kubernetes в основном на yandex cloud.
+В этой репе пишу для себя простые примера кода для terraform/ansible/packer/kubernetes в основном на yandex cloud.
 
-#[Структура репозитория]
-## kuber_clusters - примеры развертывания кластеров k8s на yandex cloud от простых к сложным.
-## packer - сборка образов packerом с заливкой в yandex cloud  и последуюищм использованием в terraform.
-## simple_virtuals - развертывание простых виртуалок с сервисами и без на yandex cloud.
+[Структура репозитория - примеры развертывания кластеров k8s на yandex cloud от простых к сложным.]
+kuber_clusters - примеры развертывания кластеров k8s на yandex cloud от простых к сложным.
+packer - сборка образов packerом с заливкой в yandex cloud  и последуюищм использованием в terraform.
+simple_virtuals - развертывание простых виртуалок с сервисами и без на yandex cloud.
 
 
 ## packer/v.1
