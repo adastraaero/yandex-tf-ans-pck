@@ -6,6 +6,86 @@
 * packer - сборка образов packerом с заливкой в yandex cloud  и последуюищм использованием в terraform.
 * simple_virtuals - развертывание простых виртуалок с сервисами и без на yandex cloud.
 
+## kuber_clusters/v.1
+### Задача: Развертывание простого кластера k8s на yandex cloud
+
+<details>
+
+```
+terraform {
+  required_providers {
+    yandex = {
+      source  = "yandex-cloud/yandex"
+      version = "0.60.0"
+    }
+  }
+}
+
+provider "yandex" {
+  service_account_key_file = var.service_account_key_file
+  cloud_id                 = var.cloud_id
+  folder_id                = var.folder_id
+  zone                     = var.zone
+}
+
+resource "yandex_kubernetes_cluster" "k8s-cluster" {
+  name       = "k8s-cluster"
+  network_id = var.network_id
+
+  master {
+    version = "1.21"
+    zonal {
+      zone      = var.zone
+      subnet_id = var.subnet_id
+    }
+    public_ip = true
+  }
+
+  service_account_id      = var.service_account_id
+  node_service_account_id = var.service_account_id
+
+  release_channel         = "RAPID"
+  network_policy_provider = "CALICO"
+}
+
+resource "yandex_kubernetes_node_group" "k8s-node" {
+  cluster_id = yandex_kubernetes_cluster.k8s-cluster.id
+  version    = "1.21"
+  name       = "k8s-node"
+
+  instance_template {
+
+    resources {
+      cores  = var.cores
+      memory = var.memory
+    }
+
+    network_interface {
+      subnet_ids = ["e9bc19cu3vl8fknf5mn6"]
+      nat        = true
+    }
+
+
+    boot_disk {
+      type = "network-ssd"
+      size = var.size
+    }
+
+    metadata = {
+      ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    }
+  }
+
+  scale_policy {
+    #Ключ fixed_scale определяет группу ВМ фиксированного размера. Размер группы определяется в ключе size
+    fixed_scale {
+      size = 2
+    }
+  }
+}
+```
+
+</details>
 
 ## packer/v.1
 ### Задача: собрать образ ubuntu с предустановленным git.
@@ -132,3 +212,118 @@ packer build ./ubuntu16.json
 
 </details>
 
+## simple_virtuals/yandex_git_tf
+### Задача: Развернуть на yandex cloud ВМ с предустановленным git используя,ранее собранный packerом образ (packer/v.1).
+
+<details>
+Если использовать значение memory меньше 4, то гит не заводится.
+
+```
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+}
+
+
+
+provider "yandex" {
+  service_account_key_file = var.service_account_key_file
+  cloud_id                 = var.cloud_id
+  folder_id                = var.folder_id
+  zone                     = var.zone
+}
+
+resource "yandex_compute_instance" "git-srv" {
+  name  = "git-srv-${count.index}"
+  count = var.instance_count
+
+  resources {
+    cores  = 2
+    memory = 4
+  }
+
+  boot_disk {
+    initialize_params {
+      # Указать id образа
+      image_id = var.image_id
+    }
+  }
+
+  network_interface {
+    # Указан id подсети default-ru-central1-a
+    subnet_id = var.subnet_id
+    nat       = true
+  }
+  metadata = {
+    ssh-keys = "ubuntu:${file(var.public_key_path)}"
+  }
+}
+```
+</details>
+
+## simple_virtuals/v.1/
+### Задача: развертывание в yandex cloud ВМ с ubuntu 22.04 и внешним ip адресом.
+
+<details>
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+}
+
+
+provider "yandex" {
+  token = "********************************************" # *OAuth-токен яндекса*
+  # не обязательный параметр (берется облако по умолчанию),
+  # хотя в документации написано иначе
+  cloud_id  = "**********************"
+  folder_id = "**************"
+  zone      = "******"
+}
+
+data "yandex_compute_image" "last_ubuntu" {
+  family = "ubuntu-2204-lts" # ОС (Ubuntu, 22.04 LTS)
+}
+
+data "yandex_vpc_subnet" "default_a" {
+  name = "default-ru-central1-a" # одна из дефолтных подсетей
+}
+
+
+
+
+# ресурс "yandex_compute_instance" т.е. сервер
+# Terraform будет знаеть его по имени "yandex_compute_instance.default"
+resource "yandex_compute_instance" "default" {
+  name        = "test-instance"
+  platform_id = "standard-v1" # тип процессора (Intel Broadwell)
+
+  resources {
+    core_fraction = 5 # Гарантированная доля vCPU
+    cores         = 2 # vCPU
+    memory        = 1 # RAM
+  }
+
+  metadata = {
+    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.last_ubuntu.id
+    }
+  }
+
+  network_interface {
+    subnet_id = data.yandex_vpc_subnet.default_a.subnet_id
+    nat       = true # автоматически установить динамический ip
+  }
+}
+</details>
