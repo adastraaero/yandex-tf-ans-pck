@@ -1,0 +1,10 @@
+---
+- name: Change file permissions
+  hosts: testsrv1
+  
+
+  tasks:
+    - name: Change file permissions
+      file:
+       path: /tmp/copy_test_file
+       mode: 0777  

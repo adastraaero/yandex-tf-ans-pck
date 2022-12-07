@@ -1,0 +1,14 @@
+---
+- name: Copy file from local to remote
+  hosts: testsrv1
+
+  tasks:
+    - name: Copying file
+      become: true
+      copy:
+       src: /home/mity/Documents/yandex_train/ansible/simpletasks/copy_test_file
+       dest: /tmp
+       owner: mity
+       group: mity
+       mode: 0644
+          

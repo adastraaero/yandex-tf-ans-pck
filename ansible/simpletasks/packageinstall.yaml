@@ -1,0 +1,15 @@
+---
+- name: Installing and Running apache
+  hosts: testsrv1
+  become: yes  
+
+  tasks:
+    - name: install apache latest
+      apt: name=apache2 update_cache=yes state=latest 
+      notify:
+        - restart apache2
+
+  handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted
+
