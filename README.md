@@ -333,7 +333,10 @@ resource "yandex_compute_instance" "default" {
 
 
 <details>
+
 Несколько задач в одном плейбуке - multipletasks.yaml
+
+
 ```
 ---
 - name: Running 2 tasks   <----- Name of the play
@@ -342,9 +345,10 @@ resource "yandex_compute_instance" "default" {
   tasks:                  <----- Run the following task
     - name: Test connectivity <----- Name of the tast
       ping:                   <----- Run the ping module 
-    
+
     - name: Print Hello World <----- Name of the second task
       debug: msg="Hello World" <----- Run the debug module 
+
 ```
 
 Копируем файлы на удаленный хост - copy_file.yaml
@@ -365,9 +369,10 @@ resource "yandex_compute_instance" "default" {
        mode: 0644                                                                <----- Change file permissions 
 ```
 
-```
+
 Меняем разрешения на файл - changefilepermission.yaml
 
+```
 ---
 - name: Change file permissions
   hosts: testsrv1
