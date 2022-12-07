@@ -327,3 +327,60 @@ resource "yandex_compute_instance" "default" {
   }
 }
 </details>
+
+
+## Базовые плейбуки Ansible ansible/simpletasks/
+
+
+<details>
+Несколько задач в одном плейбуке - multipletasks.yaml
+```
+---
+- name: Running 2 tasks   <----- Name of the play
+  hosts: localhost        <----- Run it on local host
+
+  tasks:                  <----- Run the following task
+    - name: Test connectivity <----- Name of the tast
+      ping:                   <----- Run the ping module 
+    
+    - name: Print Hello World <----- Name of the second task
+      debug: msg="Hello World" <----- Run the debug module 
+```
+
+Копируем файлы на удаленный хост - copy_file.yaml
+
+```
+---
+- name: Copy file from local to remote <----- Description of the playbook
+  hosts: testsrv1
+
+  tasks:                               <----- Run the following tast
+    - name: Copying file               <----- Description of the task
+      become: true                     <----- Transfer as a current user
+      copy:                            <----- Run the copy module
+       src: /home/mity/Documents/yandex_train/ansible/simpletasks/copy_test_file <----- source of the file
+       dest: /tmp                                                                <----- Destination of the file
+       owner: mity                                                               <----- Change ownership
+       group: mity
+       mode: 0644                                                                <----- Change file permissions 
+```
+
+```
+Меняем разрешения на файл - changefilepermission.yaml
+
+---
+- name: Change file permissions
+  hosts: testsrv1
+  
+
+  tasks:
+    - name: Change file permissions
+      file:
+       path: /tmp/copy_test_file                                                 <----- File location
+       mode: 0777                                                                <----- Permissions
+
+```
+
+
+
+</details>
