@@ -1,0 +1,11 @@
+---
+- name: Full install
+  hosts: localhost
+  roles:
+    - fullinstall
+
+
+- name: Basic install
+  hosts: testsrv1
+  roles:
+  - basicinstall  

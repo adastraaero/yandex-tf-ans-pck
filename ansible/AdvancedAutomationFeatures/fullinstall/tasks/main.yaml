@@ -1,0 +1,12 @@
+---
+- name: install apache latest
+  become: true
+  apt: name=apache2 update_cache=yes state=latest
+
+- name: open port
+  become: true
+  community.general.ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+
