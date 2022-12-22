@@ -1,0 +1,8 @@
+---
+- name: Playboook for shell script
+  hosts: testsrv1
+  
+
+  tasks:
+    - name: Run shell script
+      shell: "/home/mity/cfile.sh"  

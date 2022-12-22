@@ -1,0 +1,19 @@
+---
+- name: Download Tomcat
+  hosts: testsrv1
+  become: true  
+  tasks:
+    - name: Create Directory /opt/tomcat
+      file:
+        path: /opt/tomcat
+        state: directory
+        mode: 0755
+        owner: root
+        group: root
+    - name: Download Tomcat using get_url
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.zip
+        dest: /opt/tomcat
+        mode: 0755
+        group: mity
+        owner: mity  

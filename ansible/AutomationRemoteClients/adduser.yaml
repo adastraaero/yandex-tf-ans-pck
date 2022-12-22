@@ -1,0 +1,11 @@
+---
+- name: Pl for creating users
+  hosts: testsrv1
+  become: true  
+
+  tasks:  
+  - name: Create users
+    user:
+      name: george
+      home: /home/george
+      shell: /bin/bash  
