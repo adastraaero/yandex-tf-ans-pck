@@ -389,3 +389,103 @@ resource "yandex_compute_instance" "default" {
 
 
 </details>
+
+
+
+## Базовые плейбуки Ansible ansible/AdvancedAutomationFeatures/
+
+
+<details>
+
+### Общие сведения об Ansible Roles
+
+Roles simplifies long playbooks by grouping tasks into smaller playbooks
+
+The role are the way of breking a playbook inot multiple playbook files. This simplifies writing complex playbooks and it makes them easier to reuse
+
+Writing ansible code to manage the same service for multiple environments  create more complexity and it becomes difficult to manage everything in one ansible palybook.
+Also sharing code among other teams become difficult. That is where Ansible Role helps solve these problems.
+
+Roles are like templates that are most of time static and can be called by the playbooks
+
+Roles allow the entire configuration to be grouped in:
+- **Tasks**
+- **Modules**
+- **Variables**
+- **Handles**
+
+
+Создаём директории basicinstall и fullinstall, первая роль описывает простую установку apache2,
+вторая описывает установку apache2 и открытие порта на ufw.
+В каждой из поддиректорий создаем папку tasks и в ней файл main.yaml, в котором описываем задачу что нужно сделать.
+
+### basicinstall/tasks/main.yaml
+
+```
+---
+- name: install apache latest
+  become: true
+  apt: name=apache2 update_cache=yes state=latest
+
+```
+
+### fullinstall/tasks/main.yaml
+
+```
+---
+- name: install apache latest
+  become: true
+  apt: name=apache2 update_cache=yes state=latest
+
+- name: open port
+  become: true
+  community.general.ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+```
+
+файл byrole.yaml, который находится в корне директории, описывает к каким группам хостов какую из ролей применять.
+
+### ansible/AdvancedAutomationFeatures/byrole.yaml
+
+```
+---
+- name: Full install
+  hosts: localhost
+  roles:
+    - fullinstall
+
+
+- name: Basic install
+  hosts: testsrv1
+  roles:
+  - basicinstall
+```
+
+
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
