@@ -392,7 +392,7 @@ resource "yandex_compute_instance" "default" {
 
 
 
-## Базовые плейбуки Ansible ansible/AdvancedAutomationFeatures/
+## Продвинутые плейбуки и роли Ansible ansible/AdvancedAutomationFeatures/
 
 
 <details>
@@ -463,13 +463,58 @@ Roles allow the entire configuration to be grouped in:
   - basicinstall
 ```
 
+### Ansible Roles from Ansible Galaxy
 
+Roles allow the entire configuration to be grouped in:
+- **Tasks**
+- **Modules**
+- **Variables**
+- **Handles**
+
+Можно скачивать и устанавливать роли с https://galaxy.ansible.com/
+
+```
+ansible-galaxy install singleplatform-eng.users
+```
+
+роли скачиваются в /home/username/.ansible/roles
 
 </details>
 
+## Ansible Tags
+
+<details>
+Tags are the reference or aliases to a task
+Insted of running an entire Ansible playbook, use tags to target a specific tasks you need to run
+
+запускаем с тегами, чтобы выполнять отдельные таски в плейбуке.
+-t i-apache2
+
+запускаем с исключением тега, чтобы пропускать отдельные таски в плейбуке.
+--skip-tags -i-apache
+
+```
+---
+- name: Installing and Running apache
+  hosts: testsrv1
+  become: yes
+
+  tasks:
+    - name: install apache latest
+      apt: name=apache2 update_cache=yes state=latest
+      tags: i-apache2
 
 
+    - name: open port
+      community.general.ufw:
+        rule: allow
+        port: 80
+        proto: tcp
+      tags: o-port
+      
+```
 
+</details>
 
 
 
