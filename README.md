@@ -491,7 +491,7 @@ Insted of running an entire Ansible playbook, use tags to target a specific task
 -t i-apache2
 
 запускаем с исключением тега, чтобы пропускать отдельные таски в плейбуке.
---skip-tags -i-apache
+--skip-tags o-port
 
 ```
 ---
@@ -517,7 +517,51 @@ Insted of running an entire Ansible playbook, use tags to target a specific task
 </details>
 
 
+### Ansible Handlers
 
+<details>
+
+- **Handlers are executed at the end of the play once all tasks are finished. In Ansible, handlers are typically used to start, reload, restart and stop services.**
+- **Sometimes you want to run a task only when a change is made on a machine.For example, you want to restart a service if a task updates the configuration of that service, but not if the configuration - unchanged**
+- **Remember the case when we had to reload the firewlld because we wanted to enable http service? - it's a perfect example of using handlers**
+- **So basically handlers are tasks that only run when notified**
+- **Each handler should have a globally unique name**
+
+При выполнении задач в плейбуках периодически возникает необходимость перезапускать какой-либо сервис. Например, при обновлении конфигурационного файла.
+Простое решение - написать две обычные задачи. Одна из них будет обновлять конфиг, а вторая делать рестарт. И это будет работать, но есть одна проблема:
+рестарт произойдет в любом случае, даже если конфиг не изменится
+
+Чтобы этого избежать, в Ansible существует механизм, который называется handlers.
+
+1. На верхнем уровне, где определены хосты и список задач, добавляем еще один ключ с именем handlers и внутри него описываем набор задач. Причем в данном случае обязательно, чтобы задачи содержали имя.
+2. Связываем таски, которые могут порождать изменения, с задачами из секции handlers. Для этого с помощью ключа notify обращаемся к хендлерам по их именам:
+
+```
+---
+- name: Installing and Running apache
+  hosts: testsrv1
+  become: yes
+
+  tasks:
+    - name: install apache latest
+      apt: name=apache2 update_cache=yes state=latest
+      notify:
+        - restart apache2
+
+    - name: open port
+      community.general.ufw:
+        rule: allow
+        port: 80
+        proto: tcp
+
+
+  handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted
+```
+
+
+</details>
 
 
 
