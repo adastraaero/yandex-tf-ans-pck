@@ -1,0 +1,24 @@
+---
+- name: Installing and Running apache
+  hosts: testsrv1
+  become: yes  
+  vars:
+    kek: apache2
+
+  tasks:
+    - name: install apache latest
+      apt: name="{{ kek}}" update_cache=yes state=present 
+      notify:
+        - restart apache2
+       
+    - name: open port
+      community.general.ufw:
+        rule: allow
+        port: 80
+        proto: tcp  
+                
+
+  handlers:
+    - name: restart apache2
+      service: name="{{ kek}}" state=restarted
+
