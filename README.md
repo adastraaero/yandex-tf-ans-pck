@@ -606,13 +606,13 @@ ansible myhost -m setup
 ### Loops /ansible/Loop
 
 <details>
-- A loop is  a powerfull programming tool that enables you to execute  set of commands repeatedly
-- We can automate task but what if that task itself repetitive
-	- e.g. Chnaging permissions on hundreds of files 
-	- Creating multiple users at once
-	- Installing many packages on hundreds of servers
-- Loops can work hand in hand with conditions as we loop certain task until that conditions
-- When creating loops, Ansbile provides these two directives: loop and with_* keyword 
+
+- **A loop is  a powerfull programming tool that enables you to execute  set of commands repeatedly**
+- **We can automate task but what if that task itself repetitive**
+	- **Creating multiple users at once**
+	- **Installing many packages on hundreds of servers**
+- **Loops can work hand in hand with conditions as we loop certain task until that conditions**
+- **When creating loops, Ansbile provides these two directives: loop and with_* keyword**
 
 Example:
 To create multiple users in Linux command line we use "for loop"
