@@ -563,8 +563,45 @@ Insted of running an entire Ansible playbook, use tags to target a specific task
 
 </details>
 
+### Conditions /ansible/Conditions
+
+<details>
+
+- **Condition execution allow Ansible to take actions on its own based on certain conditions**
+- **Under condititons certain values must be met before executing a tasks**
+- **We can user the WHEN statement to make Ansible automations more smart**
+
+Условия определяются на основе данных, полученных из  Gathering Facts.
+
+Посмотреть какие данные собираются можно командой:
+
+```
+ansible myhost -m setup
+```
+
+```
+---
+- name: Install Apache WebServer
+  hosts: apachesrvs
+  become: true
+
+  tasks:
+  - name: Instiall Apache on Ubuntu Server
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_os_family == "Debian"
 
 
+  - name: Install Apache on Centos Server
+    yum:
+      name: httpd
+      state: present
+    when: ansible_os_family == "RedHat"
+```
+
+
+</details>
 
 
 
