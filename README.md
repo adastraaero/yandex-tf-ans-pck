@@ -657,7 +657,82 @@ with_item example
 </details>
 
 
+### Security ansible/SecurityandVault
 
+<details>
+Ansible-Vault используется для зашифровки плейбуков и строк.
+Oftentimes you have to share Ansible code withgroups over the network and.
+anything you share over network has a risk to end up wrong hands.
+It is best practise to use Ansible vault feature which will password protect your code.
+
+Создаем зашифрованный плейбук
+```
+ansible-vault create httpvbyvault.yaml
+```
+
+запускаем зашифрованный плейбук
+
+```
+ansible-playbook httpvbyvault.yaml --ask-vault-pass -i hosts.ini
+```
+
+редактируем зашифрованный плейбук
+```
+ansible-vault edit httpvbyvault.yaml 
+```
+
+просматриваем зашифрованный плейбук
+
+```
+ansible-vault view httpvbyvault.yaml
+```
+
+```
+---
+- name: Install httpd package
+  hosts: centossrv
+  become: true
+
+  tasks:
+    - name: Install package
+      yum:
+        name: httpd
+        state: present
+```
+
+### Encrypting Strings within a Playbook
+
+Можно зашифровать строку и поместить её внутрь плейбука
+Strings/word can be encrypted within a playbook
+
+ansible-vault encrypt_string httpd
+
+Запускается файл с зашифрованной строкой так же:
+
+ansible-playbook httpvbyvault.yaml --ask-vault-pass -i hosts.ini
+
+
+```
+---
+- name: Test encrypted output
+  hosts: centossrv
+  vars:
+   secret: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          63346238323034666537633233303335666336366636306165366638313434643631643530646661
+          3166663935333831656264366665353965313138353865320a363761366462623233346632646539
+          34323139346131663364393530393434366265646563323864313239646634343132383165323166
+          3139663762316438620a303761363163313663616262396264383066323431383939633565326337
+          3936
+
+  tasks:
+          - name: Print encrypted string
+            debug:
+                    var: secret
+                             
+```
+
+</details>
 
 
 
