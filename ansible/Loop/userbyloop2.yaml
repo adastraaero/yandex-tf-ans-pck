@@ -1,0 +1,12 @@
+---
+- name: Create user thru loop v.2
+  hosts: centossrv
+  become: true  
+  vars:
+    users: [jerry,kramer,eliane]
+
+  tasks:
+  - name: Create users
+    user:
+      name: "{{item}}"
+    with_items: "{{users}}"    
