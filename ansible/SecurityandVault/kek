@@ -1,0 +1,11 @@
+---
+- name: Install httpd package
+  hosts: centossrv
+
+  
+  tasks:
+    - name: Install package
+      yum:
+        name: httpd
+        state: present
+
