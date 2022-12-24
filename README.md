@@ -661,8 +661,11 @@ with_item example
 
 <details>
 Ansible-Vault используется для зашифровки плейбуков и строк.
+
 Oftentimes you have to share Ansible code withgroups over the network and.
+
 anything you share over network has a risk to end up wrong hands.
+
 It is best practise to use Ansible vault feature which will password protect your code.
 
 Создаем зашифрованный плейбук
