@@ -739,3 +739,52 @@ ansible-playbook httpvbyvault.yaml --ask-vault-pass -i hosts.ini
 
 
 
+### Additional commands
+
+<details>
+
+```
+ansible-config
+```
+- **Shows or modifies Ansible configuration**
+
+```
+ansible-connection 
+```
+- **Connection for remote clients**
+
+```
+ansible-console 
+```
+
+- **Allows for running ad-hoc task against a chosent inventory from a nice shell with built-in tab completion**
+- **It supports several commands and you can modify its configuration at runtime**
+- **You can run name of the listed command followed by help**
+- **Certain commands are misleading  e.g. = cd which changes the host instead of changing th directory**
+
+```
+ansible-doc
+```
+
+- **you can access manuals on plug-ins and modules through this command**
+- **adnsible-doc -l -List all modules**
+
+
+
+```
+ansible-inventory
+ansible-inventory -i hosts  --graph
+ansible-inventory --list
+```
+
+- **Using the ansible-inventory command provides you with details of your host inventory files**
+
+```
+ansible-pull
+```
+
+- **A mode called 'ansbile-pull' can also invert the system and have systems 'phone home' via**
+- **scheduled git checkouts to pull configuration directives from a central repository**
+
+
+</details>
