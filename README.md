@@ -331,6 +331,32 @@ resource "yandex_compute_instance" "default" {
 
 ## Базовые плейбуки Ansible ansible/simpletasks/
 
+пример настройки ansible.cfg для удобства работы
+
+
+```
+[defaults]
+inventory = hosts
+remote_user = vagrant
+host_key_checking = False
+retry_files_enabled = False
+#Default connection plugin to use, the ‘smart’ option will toggle between ‘ssh’ and ‘paramiko’ depending on controller OS and ssh versions
+transport = smart
+roles_path = roles
+
+[privilege escaltaion]
+become = True
+become_method = sudo
+become_user = root
+become_ask_pass = False
+
+```
+
+
+
+
+
+
 
 <details>
 
