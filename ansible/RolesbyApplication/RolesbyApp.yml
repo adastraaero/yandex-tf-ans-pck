@@ -1,0 +1,7 @@
+---
+- name: install packages
+  hosts: testsrv
+  roles:
+    - apache
+    - ntpd
+    - named

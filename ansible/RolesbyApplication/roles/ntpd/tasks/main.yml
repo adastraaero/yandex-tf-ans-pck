@@ -1,0 +1,6 @@
+---
+- name: Install TimePackage
+  become: true
+  yum:
+    name: chrony
+    state: present

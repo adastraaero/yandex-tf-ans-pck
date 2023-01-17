@@ -1,0 +1,6 @@
+---
+- name: Install DNS Package
+  become: true
+  yum:
+    name: named
+    state: present

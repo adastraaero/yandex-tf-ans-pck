@@ -507,6 +507,62 @@ ansible-galaxy install singleplatform-eng.users
 
 </details>
 
+
+### Roles by Application
+
+Создаём структуру, как указано ниже, в данном примере показано просто разделение задач по ролям и  
+один общий плейбук **RolesbyApp.yml** который запускает установку ролей.
+
+```
+tree
+.
+├── ansible.cfg
+├── hosts
+├── roles
+│   ├── apache
+│   │   └── tasks
+│   │       └── main.yml
+│   ├── named
+│   │   └── tasks
+│   │       └── main.yml
+│   └── ntpd
+│       └── tasks
+│           └── main.yml
+└── RolesbyApp.yml
+```
+
+```
+cat roles/apache/tasks/main.yml 
+---
+- name: Install Apache
+  become: true
+  yum:
+    name: httpd
+    state: present
+
+```
+
+```
+cat RolesbyApp.yml 
+---
+- name: install packages
+  hosts: testsrv
+  roles:
+    - apache
+    - ntpd
+    - named
+```
+
+
+
+
+
+
+
+
+
+
+
 ## Ansible Tags
 
 <details>
