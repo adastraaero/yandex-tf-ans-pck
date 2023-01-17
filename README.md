@@ -511,6 +511,7 @@ ansible-galaxy install singleplatform-eng.users
 ### Roles by Application
 
 <details>
+
 Создаём структуру, как указано ниже, в данном примере показано просто разделение задач по ролям и  
 один общий плейбук **RolesbyApp.yml** который запускает установку ролей.
 
