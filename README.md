@@ -870,9 +870,18 @@ ansible-pull
 
 1. [script1.sh]     
 2. [script2.sh]  
+3. [case_example1.sh]
+4. [case_example2.sh]
+5. [conditionaloperator.sh]
 
 [script1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example1.sh
 [script2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example2.sh
+[case_example1.sh]:
+[case_example2.sh]:
+[conditionaloperator.sh]:
 
-script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.
+script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.  
+case_example1.sh and case_example2.sh are explaining intergrated Bash variables and comparison operators.  
+conditionaloperator.sh - is an example of conditional operators  
+
 </details>
