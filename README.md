@@ -874,5 +874,5 @@ ansible-pull
 [script1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example1.sh
 [script2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example2.sh
 
-script1.sh and script2.sh are explaining intergrated Bash variables and compariosn operators.
+script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.
 </details>
