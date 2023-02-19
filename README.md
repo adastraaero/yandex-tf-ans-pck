@@ -863,3 +863,15 @@ ansible-pull
 
 
 </details>
+
+## Bscripts - this section is devoted for bash scripting
+
+<details>
+[Bscripts/script1.sh] 
+[Bscripts/script2.sh]
+
+[Bscripts/script1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example1.sh
+[Bscripts/script2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example2.sh
+
+script1.sh and script2.sh are explaining intergrated Bash variables and compariosn operators.
+</details>
