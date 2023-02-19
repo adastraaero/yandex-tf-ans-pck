@@ -876,9 +876,9 @@ ansible-pull
 
 [script1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example1.sh
 [script2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example2.sh
-[case_example1.sh]:
-[case_example2.sh]:
-[conditionaloperator.sh]:
+[case_example1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/case_example1.sh
+[case_example2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/case_example2.sh
+[conditionaloperator.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/conditionaloperator.sh
 
 script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.  
 case_example1.sh and case_example2.sh are explaining intergrated Bash variables and comparison operators.  
