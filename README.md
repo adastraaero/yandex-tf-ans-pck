@@ -884,4 +884,16 @@ script1.sh and script2.sh are explaining intergrated Bash variables and comparis
 case_example1.sh and case_example2.sh are explaining intergrated Bash variables and comparison operators.  
 conditionaloperator.sh - is an example of conditional operators  
 
+### Pipeline examples:
+
+Receive number of strokes in each log file for understanding, which file is bigger.
+```
+wc -l /var/log/*.log | sort -n
+```
+
+recevie  list of log files in directory in alphabetical order.
+```
+ls /var/log | grep ".log$" | sort
+```
+
 </details>
