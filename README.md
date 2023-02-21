@@ -868,21 +868,62 @@ ansible-pull
 
 <details>
 
+**Positional argument variables**
+| Variable   | Value                                                                                                  |
+|------------|--------------------------------------------------------------------------------------------------------|
+| $n or ${n} | N-th (positional) argument passed in a commad line                                                     |
+| $*         | All arguments in command line in a form of a single string variable, broken down by a delimiter ($IFS) |
+| "$*"       | All arguments in commnd line in a form of a single string variable                                     |
+| $@         | All arguments in command line in a form of an array                                                    |
+| "$@"       | All arguments in command line in a form of quotted strings                                             |
+| $#         | Number of arguments passed in a command line  
+
+
 1. [script1.sh]     
 2. [script2.sh]  
 3. [case_example1.sh]
 4. [case_example2.sh]
 5. [conditionaloperator.sh]
+6. [until_middle.sh]
+7. [until_simple.sh]
+8. [while_simple.sh]
+9. [while_simple2.sh]
+10. [while_middle.sh]
+11. [simple_random_game.sh]
+12. [check_site_responseOK.sh]
 
 [script1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example1.sh
 [script2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example2.sh
 [case_example1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/case_example1.sh
 [case_example2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/case_example2.sh
 [conditionaloperator.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/conditionaloperator.sh
+[until_middle.sh]:
+[until_simple.sh]:
+[while_simple2.sh]:
+[while_middle.sh]:
+[simple_random_game.sh]:
+[check_site_responseOK.sh]:
+
+
 
 script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.  
 case_example1.sh and case_example2.sh are explaining intergrated Bash variables and comparison operators.  
-conditionaloperator.sh - is an example of conditional operators  
+conditionaloperator.sh - is an example of conditional operators.
+
+until_middle.sh and until_simple.sh are examples of until operator.
+
+while_simple.sh, while_simple2.sh,while_middle.sh are example of while loop.
+
+simple_random_game.sh - simple random generator game.
+
+check_site_responseOK.sh - check code 200 from site throught curl request.
+
+
+
+
+
+
+
 
 ### Pipeline examples:
 
