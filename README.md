@@ -897,12 +897,13 @@ ansible-pull
 [case_example1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/case_example1.sh
 [case_example2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/case_example2.sh
 [conditionaloperator.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/conditionaloperator.sh
-[until_middle.sh]:
-[until_simple.sh]:
-[while_simple2.sh]:
-[while_middle.sh]:
-[simple_random_game.sh]:
-[check_site_responseOK.sh]:
+[until_middle.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/until_middle.sh
+[until_simple.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/until_simple.sh
+[while_simple.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/while_simple.sh
+[while_simple2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/while_simple2.sh
+[while_middle.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/while_middle.sh
+[simple_random_game.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/simple_random_game.sh
+[check_site_responseOK.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/check_site_responseOK.sh
 
 
 
