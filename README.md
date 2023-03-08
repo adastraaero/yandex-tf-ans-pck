@@ -353,11 +353,6 @@ become_ask_pass = False
 ```
 
 
-
-
-
-
-
 <details>
 
 Несколько задач в одном плейбуке - multipletasks.yaml
@@ -411,6 +406,27 @@ become_ask_pass = False
        mode: 0777                                                                <----- Permissions
 
 ```
+
+
+Устанавливаем Apache и Midnight commander в Ubuntu - installApache_MC_Ubuntu.yaml
+
+```
+---
+- name: test playbook
+  hosts: testsrv1
+  become: yes
+  tasks:
+    - name: install apache and midnight commander
+      ansible.builtin.apt:
+        pkg:
+          - mc
+          - apache2
+        state: latest
+        update_cache: yes
+        cache_valid_time: 3600
+
+```
+
 
 
 
@@ -556,7 +572,7 @@ cat RolesbyApp.yml
 ```
 </details>
 
-## Ansible Tags
+### Ansible Tags
 
 <details>
 Tags are the reference or aliases to a task
@@ -588,6 +604,64 @@ Insted of running an entire Ansible playbook, use tags to target a specific task
       tags: o-port
       
 ```
+
+#### PrintOSFamily_Update_tags_all.yaml 
+Пример обновления Ubuntu и Centos и использованием AnsibleFacts для определения какой модуль обновления вызывать,
+с и спользованием тегов, чтобы можно было вызывать таски отдельно по тегам.
+
+```
+---
+- name: Anbsible playbook
+#лучше явно указывать теги never и always
+# always - задачи с этим тэгом будут выполнятся всегда, в независимости от того какой тэг вы указали при запуске.
+#never - задачи с этим тэгом не будут выполняться только если вы не укажете конкретно --tags never
+# есть теги tagged и untagged, которые позволяют запускать все тегированные.не тегированные таски.
+# no_log - указывает, что не нужно выводить чувствительные данные.
+  hosts: testsrv1
+  become: true
+  tasks:
+    - name: Set fact
+      ansible.builtin.set_fact:
+          passwd: 'kek15'
+      no_log: true
+
+    - name: shell
+      ansible.builtin.shell:
+      # | показывает, что нужно выполнять команды после |
+        cmd: |
+          uptime
+          echo "test2525"
+
+    - name: Print os family
+      ansible.builtin.debug:
+        var: ansible_facts['os_family']
+    
+    - name: Update ubuntu
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+        upgrade: full
+      tags:
+        - ubnt
+        - never
+      when: ansible_facts['os_family'] == "Debian"
+    
+
+    - name: Update CentOS
+      ansible.builtin.yum:
+        update_cache: true
+        name: '*'
+        state: latest
+      tags:
+        - cnt
+        - never
+      when: ansible_facts['os_family'] == "RedHat"
+
+```
+
+
+
+
 
 </details>
 
@@ -728,6 +802,29 @@ with_item example
       name: "{{item}}"
     with_items: "{{users}}"
 ```
+
+PrintVariableData.yaml + PrintVariable_loopControl.yaml 
+Использование loop совместно с ansbile facts и зарегистрированными переменными.
+Выводим на экран все ip адреса localhost
+
+```
+---
+- name: test playbook
+  connection: local
+  hosts: 127.0.0.1
+  tasks:
+    - name: setup
+      ansible.builtin.setup:
+      register: setup_reg
+
+    - name: print var
+      ansible.builtin.debug:
+        # Проходим по всем элементам списка и выводим нужное
+        msg: "{{ item }}"
+        # var: setup_reg
+      loop: "{{ setup_reg.ansible_facts.ansible_all_ipv4_addresses }}"
+```
+
 
 </details>
 

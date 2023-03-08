@@ -1,0 +1,48 @@
+---
+- name: Anbsible playbook
+#лучше явно указывать теги never и always
+# always - задачи с этим тэгом будут выполнятся всегда, в независимости от того какой тэг вы указали при запуске.
+#never - задачи с этим тэгом не будут выполняться только если вы не укажете конкретно --tags never
+# есть теги tagged и untagged, которые позволяют запускать все тегированные.не тегированные таски.
+# no_log - указывает, что не нужно выводить чувствительные данные.
+  hosts: testsrv1
+  become: true
+  tasks:
+    - name: Set fact
+      ansible.builtin.set_fact:
+          passwd: 'kek15'
+      no_log: true
+
+    - name: shell
+      ansible.builtin.shell:
+      # | показывает, что нужно выполнять команды после |
+        cmd: |
+          uptime
+          echo "test2525"
+
+    - name: Print os family
+      ansible.builtin.debug:
+        var: ansible_facts['os_family']
+    
+    - name: Update ubuntu
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+        upgrade: full
+      tags:
+        - ubnt
+        - never
+      when: ansible_facts['os_family'] == "Debian"
+    
+
+    - name: Update CentOS
+      ansible.builtin.yum:
+        update_cache: true
+        name: '*'
+        state: latest
+      tags:
+        - cnt
+        - never
+      when: ansible_facts['os_family'] == "RedHat"
+
+    

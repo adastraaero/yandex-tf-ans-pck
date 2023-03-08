@@ -1,0 +1,20 @@
+---
+- name: test playbook
+  connection: local
+  hosts: 127.0.0.1
+  tasks:
+    - name: setup
+      ansible.builtin.setup:
+      register: setup_reg
+
+    - name: print var
+      ansible.builtin.debug:
+        # Проходим по всем элементам списка и выводим нужное
+        msg: "{{ ip }}"
+        # var: setup_reg
+      loop: "{{ setup_reg.ansible_facts.ansible_all_ipv4_addresses }}"
+      # loop стоит ниже, т.к. это не парамет дебага, а параметр task.
+      loop_control:
+      # Определённое имя переменной вместо item, чтобы удобнее было дальше обрабатывать
+    
+        loop_var: ip

@@ -1,0 +1,14 @@
+---
+- name: test playbook
+  connection: local
+  hosts: 127.0.0.1
+  tasks:
+    - name: setup
+      ansible.builtin.setup:
+      register: setup_reg
+
+    - name: print var
+      ansible.builtin.debug:
+        # Проходим по всем элементам списка и выводим нужное
+        msg: "{{ item }}"
+      loop: "{{ setup_reg.ansible_facts.ansible_all_ipv4_addresses }}"

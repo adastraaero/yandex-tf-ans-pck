@@ -1,0 +1,14 @@
+---
+- name: test playbook
+  hosts: testsrv1
+  become: yes
+  tasks:
+    - name: install apache and midnight commander
+      ansible.builtin.apt:
+        pkg:
+          - mc
+          - apache2
+        state: latest
+        update_cache: yes
+        cache_valid_time: 3600
+
