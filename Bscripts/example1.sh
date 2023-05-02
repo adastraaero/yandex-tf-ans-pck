@@ -7,7 +7,7 @@ fi
 
 if [[ $1 > $2 ]]; then
 	echo "1st argument is bigger than 2nd"
-elif [[ $2 > $2 ]]; then
+elif [[ $1 < $2 ]]; then
 	echo "2nd arguemnt is bigger than 1st"
 else
 	echo "arguments are equal"
