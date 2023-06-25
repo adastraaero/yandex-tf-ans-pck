@@ -1,0 +1,4 @@
+---
+mysql_root_password: "@Test_12345@"
+wp_user: "wordpressuser"
+wp_password: "@WP_PASS12345@"

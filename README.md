@@ -1036,3 +1036,125 @@ ls /var/log | grep ".log$" | sort
 ```
 
 </details>
+
+## Ansible_Pbooks_Roles - плейбуки и роли для ansbile от простого к сложному с использованием Vagrant или terraform
+
+<details>
+
+### Ubuntu_22_Mysql - Пример развертывания mysql Ubuntu 22_04
+#### Полезные данные
+Операторы SQL
+* DDL(Data Definition Language) - операторы определения данных.
+  * CREATE - создание объекта в базе данных
+  * ALTER - изменение объекта
+  * DROP - удаление объекта
+* DML(Data Manipulation Language) - операторы манипуляции с данными.
+  * SELECT - выборка данных в соответствии с условием
+  * INSERT - Добавление новых данных
+  * UPDATE - изменение существующих данных
+  * DELETE - удаление данных
+* DCL(Data Control Language) - оператор определения доступа к данным.
+  * GRANT - предоставление доступа к объекту
+  * REVOKE - отзыв ранее выданного разрешения
+  * DENY - запрет, который является приоритетным над разрешением.
+* TCL(Transcation Control Language) - язык управления транзакциями.
+  * BEGIN TRANSACTION - обозначение начала транзакции
+  * COMMIT TRANSACTION - изменение команд внутри транзакции
+  * ROLLBACK TRANSACTION - откат транзакции
+  * SAVE TRANSACTION - указание промежуточной точки сохранения внутри транзакции
+
+Вывести все доступные подсистемы хранения
+```
+mysql> show engines;
+#Использование движка MyISAM
+mysql> create table test2 (id integer) engine=MiISAM;
+
+#Использование движка MEMORY
+mysql> create table test3 (id integer) engine=MEMORY;
+
+#Проверка - вывод информации по таблице с указанием движка
+mysql> show table status like 'test2' \G
+
+```
+можно выбирать разные подсистемы хранения для таблиц в зависимости от требований надежности и производительности.
+
+
+Настройка входа без пароля c проверкой создания файла:
+```
+mysql_config_editor set --user=root --password
+ls -lA ~/.mylogin.cnf
+cat ~/.mylogin.cnf
+mysql_config_editor print --all
+```
+```
+#Выдача полных прав на базу
+mysql> grant all privileges on test.* to 'test'@'localhost';
+
+#Перезагрузить кэш привелегий
+mysql> flush privileges;
+
+#Отбор прав на базу
+mysql> revoke all privileges on test.* from 'test'@'localhost';
+
+```
+#### Посмотреть сколько времени занимают различные запросы
+
+```
+#Включаем профайлинг
+mysql> set profiling =1;
+
+#Выполняем различные запросы
+
+#Смотрим результат
+mysql> show profiles;
+
+```
+
+#### Тюниг mysql
+```
+# Скачивание mysqltuner
+$ wget https://raw.github.com/major/MySQLTuner-perl/master/mysqltuner.pl
+# Запуск mysqltuner и вывод результата
+$ perl mysqltuner.pl
+```
+
+#### Просмотр системных переменных
+
+```
+# Просмотр параметра 'max_connections' (вариант 1)
+mysql> SHOW GLOBAL VARIABLES LIKE 'max_connections'
+
+# Просмотр параметра 'max_connections' (вариант 2)
+mysql> select @@global.max_connections;
+
+# Изменение параметра 'max_connections' (вариант 1)
+mysql> SET GLOBAL max_connections=100\g
+
+# Изменение параметра 'max_connections' (вариант 2)
+mysql> SET @@global.max_connections=100\g
+
+```
+#### Изменение системных переменных
+```
+$ vim /etc/my.cnf.d/mysql-server.cnf
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+log-error=/var/log/mysql/mysqld.log
+pid-file=/run/mysqld/mysqld.pid
+$ systemctl restart mysqld
+```
+
+#### Cоздание бэкапа
+```
+# Создание бэкапа
+$ mysqldump -u root -p DATABASE > backup.sql
+# Восстановление бэкапа
+$ mysql -u root -p NEW_DATABASE < backup.sql
+```
+
+
+
+
+
+</details>
