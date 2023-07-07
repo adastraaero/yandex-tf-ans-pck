@@ -1,0 +1,87 @@
+---
+#Отключение SElinux до перезагрузки name: disable SElinux now
+- name: Update cache
+  ansible.builtin.apt:
+   update_cache: yes
+   cache_valid_time: 3600
+
+- name: Upgrade all packages
+  ansible.builtin.apt:
+   name: "*"
+   state: latest
+
+- name: Set timezone to Europe/Moscow
+  community.general.timezone:
+   name: Europe/Moscow
+
+- name: Copy my.cnf global MySQL configuration.
+  ansible.builtin.template:
+   src: root.my.cnf.j2
+   dest: /root/.my.cnf
+   owner: root
+   group: root
+   mode: 0644
+
+
+- name: Install mysql
+  ansible.builtin.apt:
+   name: mysql-server
+   state: present
+
+
+- name: Install python
+  ansible.builtin.apt:
+   name: python3-pymysql
+   state: present
+
+
+- name: Start & enable server
+  ansible.builtin.service:
+   name: mysql
+   state: started
+   enabled: yes
+
+- name: Copy configs
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /etc/mysql/mysql.conf.d/
+  with_fileglob: "*.cnf"
+  notify: restart_mysql  
+
+
+- name: Create DB wordpress
+  community.mysql.mysql_db:
+   name: wordpress
+   state: present
+   login_unix_socket: /run/mysqld/mysqld.sock
+
+
+- name: Sets the root password
+  community.mysql.mysql_user:
+   name: root
+   password: "{{mysql_root_password}}"
+   login_unix_socket: /var/run/mysqld/mysqld.sock
+   host: '%'
+   priv: '*.*:ALL'
+   state: present
+
+- name: Sets the wp password
+  community.mysql.mysql_user:
+   name: wordpressuser
+   password: "{{wp_password}}"
+   login_unix_socket: /var/run/mysqld/mysqld.sock
+   host: '%'
+   priv: '*.*:ALL'
+   state: present
+
+
+
+
+
+
+- name: Dump multiple databases
+  community.mysql.mysql_db:
+    login_unix_socket: /run/mysqld/mysqld.sock
+    state: dump
+    name: wordpress
+    target: /tmp/dump.sql

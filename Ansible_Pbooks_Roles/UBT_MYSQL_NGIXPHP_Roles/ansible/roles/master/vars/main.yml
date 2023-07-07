@@ -1,0 +1,2 @@
+server_hostname: your_domain
+link_path: /etc/nginx/site-enabled/default  

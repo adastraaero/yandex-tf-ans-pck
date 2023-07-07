@@ -1,0 +1,84 @@
+---
+#Отключение SElinux до перезагрузки
+- name: Update cache
+  ansible.builtin.apt:
+   update_cache: yes
+   cache_valid_time: 3600
+
+- name: Upgrade all packages
+  ansible.builtin.apt:
+   name: "*"
+   state: latest
+
+- name: Set timezone to Europe/Moscow
+  community.general.timezone:
+   name: Europe/Moscow
+
+
+
+- name: Install required software
+  ansible.builtin.apt: name={{ item }} state=present
+  with_items:
+    - nginx
+    - mysql-client  
+    - php8.1-fpm
+    - php-mysql
+    - php-curl
+    - php-gd
+    - php-intl
+    - php-mbstring
+    - php-soap
+    - php-xml
+    - php-xmlrpc
+    - php-zip  
+
+- name: Start nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+
+- name: Create webroot
+  ansible.builtin.file:
+    state: directory
+    path: /var/www/{{server_hostname}}
+    owner: root
+    group: root
+    mode: 0755
+
+
+
+
+- name: Copy index.html
+  ansible.builtin.copy:
+    src: index.html
+    dest: /var/www/{{server_hostname}}/index.html
+    owner: root
+    group: root
+    mode: '0644'
+
+
+- name: Copy basic info.php
+  ansible.builtin.copy:
+    src: info.php
+    dest: /var/www/{{server_hostname}}/info.php
+    owner: root
+    group: root
+    mode: '0644'
+
+
+
+
+- name: Disable the default site
+  ansible.builtin.file: path=/etc/nginx/sites-enabled/default state=absent
+
+
+
+
+- name: Update nginx confs for WordPress + PHP
+  ansible.builtin.template: "src=../templates/default-site.conf dest=/etc/nginx/sites-available/{{server_hostname}} owner=www-data group=www-data mode=0777"
+
+- name: Enable site
+  ansible.builtin.file: src=/etc/nginx/sites-available/{{server_hostname}} dest=/etc/nginx/sites-enabled/{{server_hostname}} owner=www-data group=www-data state=link
+  notify:
+    - restart nginx
+

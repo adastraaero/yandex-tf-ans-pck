@@ -1,0 +1,12 @@
+Log created: 2023-06-26T11:59:57.009497000Z
+Process ID:  62049 (0xf261)
+Parent PID:  1 (0x1)
+Executable:  /usr/lib/virtualbox/VBoxHeadless
+Arg[0]: /usr/lib/virtualbox/VBoxHeadless
+Arg[1]: --comment
+Arg[2]: Ubuntu_22_Mysql_master_1687707878346_88191
+Arg[3]: --startvm
+Arg[4]: 619e6466-bed5-4b7b-a722-acd395103d17
+Arg[5]: --vrde
+Arg[6]: config
+AddRef: illegal refcnt=3221225469 state=2
