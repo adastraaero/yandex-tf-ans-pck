@@ -1161,13 +1161,13 @@ $ mysql -u root -p NEW_DATABASE < backup.sql
 
 
 ## UBT_MYSQL_NGIXPHP_Roles
-Пример развертывания LEMP стека (Linux, Nginx, MySQL, PHP) на Ubuntu 22.04
-Без настройки firewall и selinux.
-master - роль включает в себя Nginx, PHP
-slave - включает в себя MySQL
-проверка - http://192.168.11.150/info.php  - должный увидеть данные по php
-         http://192.168.11.150 - - должный увидеть кастомный nginx.html
-проверка работы MYSQL - c master - mysql -u wordpress -p -h 192.168.11.151 - должно произойти подключение.         
+Пример развертывания LEMP стека (Linux, Nginx, MySQL, PHP) на Ubuntu 22.04  
+Без настройки firewall и selinux.  
+master - роль включает в себя Nginx, PHP  
+slave - включает в себя MySQL  
+проверка - http://192.168.11.150/info.php  - должный увидеть данные по php  
+         http://192.168.11.150 - - должный увидеть кастомный nginx.html  
+проверка работы MYSQL - c master - mysql -u wordpress -p -h 192.168.11.151 - должно произойти подключение.           
 <details>
 
 
