@@ -988,6 +988,8 @@ ansible-pull
 10. [while_middle.sh]
 11. [simple_random_game.sh]
 12. [check_site_responseOK.sh]
+13. [read_print_arg.sh]
+14. [arg_or_read.sh]
 
 [script1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example1.sh
 [script2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example2.sh
@@ -1001,8 +1003,8 @@ ansible-pull
 [while_middle.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/while_middle.sh
 [simple_random_game.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/simple_random_game.sh
 [check_site_responseOK.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/check_site_responseOK.sh
-
-
+[read_print_arg.sh]:
+[arg_or_read.sh]:
 
 script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.  
 case_example1.sh and case_example2.sh are explaining intergrated Bash variables and comparison operators.  
@@ -1015,6 +1017,14 @@ while_simple.sh, while_simple2.sh,while_middle.sh are example of while loop.
 simple_random_game.sh - simple random generator game.
 
 check_site_responseOK.sh - check code 200 from site throught curl request.
+
+
+read_print_arg.sh - скрипт выводит аргумент на экран, если аргумента нет он его просит ввести.
+arg_or_read.sh - показывает как обрабатываются переменные $0, $#, $@, $* :
+
+* $@ и $* - ссылаются на все переданные аргументы для скрипта
+* $# - counter
+* $0 - показывает имя запускаемого скрипта
 
 
 
