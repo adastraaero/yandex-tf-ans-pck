@@ -1003,8 +1003,8 @@ ansible-pull
 [while_middle.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/while_middle.sh
 [simple_random_game.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/simple_random_game.sh
 [check_site_responseOK.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/check_site_responseOK.sh
-[read_print_arg.sh]:
-[arg_or_read.sh]:
+[read_print_arg.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/read_print_arg.sh
+[arg_or_read.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/arg_or_read.sh
 
 script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.  
 case_example1.sh and case_example2.sh are explaining intergrated Bash variables and comparison operators.  
