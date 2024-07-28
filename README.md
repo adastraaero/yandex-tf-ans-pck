@@ -990,6 +990,8 @@ ansible-pull
 12. [check_site_responseOK.sh]
 13. [read_print_arg.sh]
 14. [arg_or_read.sh]
+15. [ObrabotkaFailov.sh]
+16. [MenuSelect.sh]
 
 [script1.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example1.sh
 [script2.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/example2.sh
@@ -1005,6 +1007,17 @@ ansible-pull
 [check_site_responseOK.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/check_site_responseOK.sh
 [read_print_arg.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/read_print_arg.sh
 [arg_or_read.sh]:https://github.com/adastraaero/yandex-tf-ans-pck/blob/main/Bscripts/arg_or_read.sh
+[ObrabotkaFailov.sh]:
+[MenuSelect.sh]:
+[HowAreYou.sh]:
+[cmd_time.sh]:
+[arrays_example.sh]:
+[./NorArgFunction.sh]:
+[service_availability.sh]:
+[WhileLoop.sh]:
+[sar-q_analise.awk]:
+[sar-q.output]:
+
 
 script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.  
 case_example1.sh and case_example2.sh are explaining intergrated Bash variables and comparison operators.  
@@ -1026,10 +1039,31 @@ arg_or_read.sh - показывает как обрабатываются пер
 * $# - counter
 * $0 - показывает имя запускаемого скрипта
 
+ObrabotkaFailov.sh
+Использует вложенные циклы для обработки файлов. Внешний цикл занимается перебором строк файла, а внутренний уже работает с каждой строкой.
+Первый проходится по строкам, используя в качестве разделителя(IFS) знак перевода строки. Внутренний занят разбором строк, поля которых разделены двоеточиями.
+
+MenuSelect.sh - предлагает выбор из 3ех значений в виде меню. [ -n "$dir" ] - значит что длина строки должна быть не нулевой
+
+HowAreYou.sh - спрашивает как дела, переводит ответ в верхний регистр и проверяет пустой ответ или нет,
+
+cmd_time.sh - запрашивает ввод данных, если в течение 5 сек нет ответа, выполняется дальше.
+
+arrays_example.sh - пример работы с массивами, вывод количества элементов, вывод индексов массива и .т.д.
+
+NorArgFunction.sh - простой пример функции, если скрипту не передан аргумент ввиде файла, то вызывается функция, которая об этом пишет и выходит из скрипта.
 
 
+service_availability.sh - проверяети что сервис запушен, и мониторит что сервис продолжает работать каждые 10 секунд, если сервис останавливается, то скрипт его пытается перепустить и отправляет mail для root.
 
+WhileLoop.sh - показывает как работает цикл while  и continue + break
 
+sar-q.output + sar-q_analise.awk - awk скрипт, который анализирует вывод команды sar -q и выводит колонки 1,4,5,6
+[:digit:]	Numeric characters
+[:space:]	Space characters (these are: space, TAB, newline, carriage return, formfeed and vertical tab)
+[:digit:]	Numeric characters
+[:alpha:]	Alphabetic characters
+[:punct:]	Punctuation characters (characters that are not letters, digits, control characters, or space characters)
 
 
 
