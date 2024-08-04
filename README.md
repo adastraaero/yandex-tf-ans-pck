@@ -433,6 +433,26 @@ become_ask_pass = False
 </details>
 
 
+## Задачки от BashDays
+
+<details>
+
+- Собери контейнер nginx (из исходников) + lua (из исходников)
+
+- Проставь на образ теги v1, v2, v3
+
+- Покажи мне Dockerfile (nginx + lua)
+
+- Продемонстрируй что модуль lua заработал
+
+Решение:
+
+https://github.com/adastraaero/yandex-tf-ans-pck/tree/main/BashDays/NginxLUADOCKER
+
+
+
+</details>
+
 
 ## Продвинутые плейбуки и роли Ansible ansible/AdvancedAutomationFeatures/
 
@@ -1213,6 +1233,11 @@ slave - включает в себя MySQL
          http://192.168.11.150 - - должный увидеть кастомный nginx.html  
 проверка работы MYSQL - c master - mysql -u wordpress -p -h 192.168.11.151 - должно произойти подключение.           
 <details>
+
+
+
+
+
 
 
 
