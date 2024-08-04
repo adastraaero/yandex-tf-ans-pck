@@ -1,0 +1,15 @@
+---
+# Каждые 2  минуты пишет в лог сообщение
+- name: cron demo
+  hosts: all
+  tasks:
+    - name: Creates a cron job
+      ansible.builtin.cron:
+        name: "test"
+        state: present
+        minute: "*/2"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: 'logger "hello bro"'      

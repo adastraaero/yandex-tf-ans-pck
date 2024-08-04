@@ -1,0 +1,14 @@
+---
+# Генерация через луп и шаблон файла, который по структуре такой же как /etc/myhosts
+# Создаём /etc/myhosts использую magic variables hostvars
+- name: loop in file example
+  hosts: all
+  become: true
+  tasks:
+    - name:generate /etc/myhosts file
+      ansible.builtin.template:
+        src: loop_in_file.j2
+        dest: /etc/myhosts
+        owner: root
+        group: root
+        mode: '0644'

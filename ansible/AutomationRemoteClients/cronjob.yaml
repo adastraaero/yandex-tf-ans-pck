@@ -4,7 +4,7 @@
   
 
   tasks:
-    - name: Schedule cron:
+    - name: Schedule cron
       cron:
        name: This job is scheduled by Ansible
        minute: "0"
