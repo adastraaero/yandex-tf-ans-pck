@@ -1,0 +1,7 @@
+---
+- name:
+  hosts: all
+  tasks:
+    - name: display HOME
+      ansible.builtin.debug:
+        msg: "{{ lookup('env', 'HOME') }}"

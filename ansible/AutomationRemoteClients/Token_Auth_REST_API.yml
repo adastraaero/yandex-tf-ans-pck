@@ -1,0 +1,26 @@
+---
+## ансибл напишет ошибку, если статус код не 200, 202
+## задача использую информацию для логина получить токен.
+- name: uri demo
+  hosts: all
+  become: false
+  vars:
+    server: "https://reqres.in"
+    endpoint: "/api/login"
+  tasks:
+    - name: login
+      ansible.builtin.uri:
+        url: "{{ server }}{{ endpoint }}"
+        method: POST
+        body_format: json
+        body: '{
+          "email": "eve.holt@reqres,in",
+          "password": "cityslicka"
+          }'
+        status_code: 200
+        timeout: 30
+      register: 
+
+    - name: token
+      ansible.builtin.debug:
+        var: result.json.token

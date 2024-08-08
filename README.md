@@ -1037,6 +1037,7 @@ ansible-pull
 [WhileLoop.sh]:
 [sar-q_analise.awk]:
 [sar-q.output]:
+[create_nested_dir_list.sh]:
 
 
 script1.sh and script2.sh are explaining intergrated Bash variables and comparison operators.  
@@ -1085,6 +1086,9 @@ sar-q.output + sar-q_analise.awk - awk скрипт, который анализ
 [:alpha:]	Alphabetic characters
 [:punct:]	Punctuation characters (characters that are not letters, digits, control characters, or space characters)
 
+**create_nested_dir_list.sh:** - Скрипт создаёт дерево каталогов из файла dirlist.txt. После создаёт в каждом каталоге 2 файла bashdays1.txt и bashdays2.txt.
+После ждёт 10 сек и проводит замену файла bashdays2.txt на linuxfactory.txt.
+
 
 
 ### Pipeline examples:
@@ -1098,6 +1102,11 @@ recevie  list of log files in directory in alphabetical order.
 ```
 ls /var/log | grep ".log$" | sort
 ```
+
+
+
+
+
 
 </details>
 

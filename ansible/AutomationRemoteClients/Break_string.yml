@@ -1,0 +1,28 @@
+---
+## Пример испольхования различные операторов, для вывода много строчного текста в одну строку
+## В первом случае выводится разделитель после каждой строки, во втором только в конце.
+## При использовании обоих операторов выводится знак перехода на новую строку в конце текста
+## для того чтобы это убрать после обозначения многострочного текста "|" и ">" ставится знак минус.
+## task3 показывает как вывести текст многострочно
+
+- name: debug and breaking string
+  hosts: all
+  vars:
+    variable1: |-
+      exactly as you see
+      will appear these three
+      lines of text
+    variable2: >-
+      this is really a
+      single line of text
+      despite appearances
+  tasks:
+    - name: print variable1
+      ansible.builtin.debug:
+        var: variable1
+    - name: print variable2
+      ansible.builtin.debug:
+        var: variable2    
+    - name: print variable1 multiline
+      ansible.builtin.debug:
+        msg: "{{ variable1.split('\n') }}"    
