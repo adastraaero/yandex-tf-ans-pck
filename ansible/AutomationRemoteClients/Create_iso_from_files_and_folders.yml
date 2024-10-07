@@ -1,0 +1,13 @@
+---
+# Для работы данного модуля необходима установку на машину,
+# на которой выполняется плейбук библиотеки pip install pycdlib, команда "pip install pycdlib"
+- name: create iso file
+  hosts: all
+  tasks:
+    - name: Create an ISO file
+      community.general.iso_create:
+        src_files:
+          - /home/mity/download
+        dest_iso: /home/mity/dwd.iso
+        interchange_level: 4
+        joliet: 3

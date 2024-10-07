@@ -1,0 +1,15 @@
+---
+- name: Download URL
+  hosts: all
+  become: false
+  vars:
+    myurl: "https://releases.ansible.com/ansible/ansible-2.9.25.tar.gz"
+    mydest: "/home/mity"
+  tasks:
+    - name: download file
+      get_url:
+        url: "{{ myurl }}"
+        dest: "{{ mydest }}"
+        mode: '0644'
+        owner: mity
+        group: mity

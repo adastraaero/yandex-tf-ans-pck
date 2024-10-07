@@ -1,0 +1,26 @@
+---
+### move python script to remote host and run it
+### save it result in variable
+### convert outpust to json format
+### display result on screnn
+- name: run Python script RemotePythonScriptRun.py
+  hosts: all
+  tasks:
+    - name: run RemotePythonScriptRun.py script 
+      ansible.builtin.script:
+        executable: python3
+        cmd: RemotePythonScriptRun.py
+      register: cars_raw_output
+
+    - name: print cars_raw_output
+      ansible.builtin.debug:
+        var: cars_raw_output
+
+
+    - name: convert output to JSON
+      ansible.builtin.set_fact:
+        cars_list: "{{ cars_raw_output.stdout | from_json }}"
+
+    - name: print cars_list
+      ansible.builtin.debug:
+        var: cars_list

@@ -1,0 +1,29 @@
+---
+- name: tasks with tags
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: check disk space
+      command: df -h
+      register: disk_space
+      ignore_errors: true
+      tags: always  # выполняется всегда, независимо от указанных тегов
+
+    - name: Install htop
+      ansible.builtin.package:
+        name: htop
+        state: present
+      tags: htop
+
+    - name: Install git
+      ansible.builtin.package:
+        name: git
+        state: present
+      tags: git
+
+    - name: Install mc
+      ansible.builtin.package:
+        name: mc
+        state: present
+      tags: mc

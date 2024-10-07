@@ -1,0 +1,14 @@
+---
+#создание простого текстового файла на удаленном хосте
+- name: 
+  hosts: all
+  vars:
+    myfile: "~/example.txt"
+  tasks:
+    - name: create a simple text file
+      copy:
+        dest: "{{ myfile }}"
+        content: |
+          line 1
+          line 2
+          etc

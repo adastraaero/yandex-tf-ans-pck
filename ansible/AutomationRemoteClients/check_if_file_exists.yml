@@ -1,0 +1,23 @@
+---
+#Проверяет существует ли файл по указанному пути и выводит результат
+#на экран 
+- name: check if file exist
+  hosts: all
+  become: false
+  vars:
+    myfile: "/home/mity/example.txt"
+  tasks:
+    - name: check if a file exists
+      stat:
+        path: "{{ myfile }}"
+      register: file_data
+
+    - name: report file exists
+      debug:
+        msg: "The file  {{ myfile }} exist"
+      when: file_data.stat.exists
+
+    - name: report file missing
+      debug:
+        msg: "The file {{ myfile }} is not exist"
+      when: not file_data.stat.exists

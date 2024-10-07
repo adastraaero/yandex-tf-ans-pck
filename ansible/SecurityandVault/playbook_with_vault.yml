@@ -1,0 +1,11 @@
+---
+- name: Playbook with Vault
+  hosts: all
+  tasks: 
+    - name: include Vault
+      include_vars:
+        file: plain-to-text-encrypted.yml
+
+    - name: print variable
+      debug:
+        var: password

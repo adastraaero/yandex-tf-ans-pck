@@ -1,0 +1,13 @@
+---
+- name: create dir
+  hosts: all
+  vars:
+    mydir: "~/example"
+  tasks:
+    - name: Creating a directory
+      file:
+        path: "{{ mydir }}"
+        state: directory
+        owner: mity
+        group: mity
+        mode: '0644'         

@@ -1,0 +1,13 @@
+---
+- name: filme module demo
+  hosts: all
+  vars:
+    myfile: "/home/mity/test.txt"
+  become: true
+  tasks:
+    - name: check permission
+      file:
+        path: "{{ myfile }}"
+        owner: "mity"
+        group: "users"
+        mode: '0777'

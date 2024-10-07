@@ -1,0 +1,17 @@
+---
+- name: Удаление только файлов в директории
+  hosts: all  # целевые хосты или группы
+  become: true  # используем привилегии sudo
+  tasks:
+    - name: Найти все файлы в директории
+      find:
+        paths: "/home/mity/TestDir"  # укажите путь к директории
+        recurse: yes
+        file_type: file  # ищем только файлы
+      register: found_files
+
+    - name: Удалить найденные файлы
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ found_files.files }}"

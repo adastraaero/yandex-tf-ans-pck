@@ -1,0 +1,11 @@
+---
+## создание файла на удаленной системе
+- name: create file demo
+  hosts: all
+  vars:
+    myfile: "~/example.txt"
+  tasks:
+    - name: Create empty file
+      file:
+        path: "{{ myfile }}"
+        state: touch

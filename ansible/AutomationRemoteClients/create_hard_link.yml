@@ -1,0 +1,12 @@
+---
+- name: create hard link
+  hosts: all
+  vars:
+    mylink: "~/link"
+    myfile: "/home/mity/test.txt"
+  tasks:
+    - name: creating hardlink
+      file: 
+        src: "{{ myfile }}"
+        dest: "{{ mylink }}"
+        state: hard

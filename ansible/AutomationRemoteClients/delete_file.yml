@@ -1,0 +1,11 @@
+---
+- name: file module delete
+  hosts: all
+  vars:
+    mypath: "/home/mity/test.txt"
+  become: false
+  tasks:
+    - name: "{{ mypath }}"
+      file:
+        path: "{{ mypath }}"
+        state: "absent"

@@ -1,0 +1,17 @@
+---
+- name: search string
+  hosts: all
+  vars:
+    myfile: "/etc/ssh/sshd_config"  # Путь к файлу для редактирования
+    myline: "PasswordAuthentication yes"  # Строка, которую мы ищем или добавляем
+  become: true  # Используем привилегии суперпользователя
+  tasks:
+    - name: string found  # Задача для поиска или добавления строки в файл
+      lineinfile:
+        path: "{{ myfile }}"  # Путь к файлу 
+        line: "{{ myline }}"  # Строка, которую нужно добавить или проверить
+        state: present  # Проверяем, что строка существует (или добавляем её)
+      check_mode: true  # Включаем режим проверки (без изменений)
+      register: conf  # Регистрируем результат выполнения задачи
+      failed_when: (conf is changed) or (conf is failed)  # Условие неудачи: если файл был изменён или задача завершилась неудачей
+

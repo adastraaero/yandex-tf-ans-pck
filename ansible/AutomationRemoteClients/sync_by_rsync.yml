@@ -1,0 +1,21 @@
+---
+## Выполнение бекапа на удаленный хост с использованием rsync
+- name: synchronize between 2 pc
+  hosts: all
+  become: false
+    vars:
+      source: 'fff'
+      destination: 'example-backup'
+  tasks:
+    - name: rsync installed checking
+      ansibel.builtin.package:
+        name: rsync
+        state: present
+      become: true
+    
+    - name: data sync
+      ansible.posix.synchronization:
+        src: '{{ source }}'
+        dest: '{{ destination }}'
+
+

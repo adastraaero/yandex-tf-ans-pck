@@ -1,0 +1,21 @@
+---
+## Проверяет существует ли директория использую свойства модуля stat
+## При запуске плейбука можно переопределить значение переменной
+## Пример: ansible-playbook -i hosts -e 'directory=/var' check_if_directory_exist.yml 
+- name: check if direcrory exists
+  hosts: all
+  become: false
+  vars:
+     directory: "/tmp/"
+
+  tasks:
+    - name: Check if the direcroty exists
+      stat:
+        path: "{{ directory }}"
+      register: dir_to_check
+
+    - name: Directory found
+      debug:
+        msg: "Directroy {{ directory }} present"
+      when: dir_to_check.stat.isdir is defined and dir_to_check.stat.isdir 
+

@@ -1,0 +1,50 @@
+---
+- name: Podmad RHEL demo httpd
+  hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    webroot: "/webroot"
+  tasks:
+    - name: verify podman installation
+      ansible.builtin.yum:
+        name: podman
+        state: latest
+
+
+    - name: pull image
+      containers.podman.podman_image:
+        name: httpd
+        pull: true
+
+
+
+    - name: create dir
+      ansible.builtin.file:
+        path: "{{ webroot }}"
+        state: directory
+        owner: "root"
+        group: "root"
+        mode: '0755'
+        setype: "container_share_t"
+
+
+    - name: custom index.html
+      ansible.builtin.copy:
+        dest: "{{ webroot}}/index.html"
+        content: |
+          Custom RHEL page
+
+    - name: run httpd container
+      containers.podman.podman_container:
+        name: webserver
+        image: httpd
+        state: started
+        detach: true
+        exposed_ports:
+          - 80
+        ports:
+          - 1499:80
+        volumes:
+          - "{{ webroot }}:/usr/local/apache2/htdocs/:exec"
+

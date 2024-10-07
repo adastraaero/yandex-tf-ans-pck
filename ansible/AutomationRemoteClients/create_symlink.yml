@@ -1,0 +1,13 @@
+---
+- name: create symlink demo
+  hosts: all
+  vars:
+    mylink: "/home/mity/example"
+    myscr: "/home/mity/test.txt"
+  tasks:
+    - name: creating a symlink
+      file:
+        src: "{{ myscr }}"
+        dest: "{{ mylink }}"
+        state: link
+

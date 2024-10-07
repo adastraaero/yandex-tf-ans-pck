@@ -1,0 +1,30 @@
+---
+- name: rename file or directory
+  hosts: all
+  vars:
+    mysrc: "~/example"
+    mydest: "~/crab"
+  tasks:
+    - name: check if file exists
+      stat:
+        path: "{{ mysrc }}"
+      register: check_file_name
+
+    - name: print debug
+      debug:
+        var: check_file_name
+
+
+    - name: Copy file with new name
+      copy:
+        remote_src: true
+        src: "{{ mysrc }}"
+        dest: "{{ mydest}}"
+      when: check_file_name.stat.exists
+
+    - name: Remove old file
+      file:
+        path: "{{ mysrc }}"
+        state: absent
+
+  

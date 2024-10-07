@@ -1,0 +1,41 @@
+---
+- name: mount
+  hosts: all
+  become: true
+  vars:
+    mynfs: "192.168.28.15:/nfs/crab"
+    mountpoint: "/share"
+    permission: '0777'
+    myopts: 'rw,sync'
+
+  tasks:
+    - name: check utility installed at RH type systems
+      yum:
+        name:
+          - nfs-utils
+          - nfs4-acl-tools
+        state: present
+      when: ansible_os_familty == 'RedHat'
+
+    - name: check utility installed Debian like systems
+      apt:
+        name: 
+          - nfs-common
+          - nfs4-acl-tools
+        state: present
+      when: ansible_os_familty == 'Debian'
+    - name: check mountpoint exists
+      file: 
+        path: "{{ mountpoint }}"
+        state: directory
+        mode: "{{ permission }}"
+        owner: root
+        group: root
+
+    - name: mount share
+      mount:
+        src: "{{ mynfs }}"
+        path: "{{ mountpoint }}"
+        fstype: nfs
+        opts: "{{ myopts }}"
+        state: mounted

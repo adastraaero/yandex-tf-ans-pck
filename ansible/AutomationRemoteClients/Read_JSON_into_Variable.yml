@@ -1,0 +1,10 @@
+---
+### Receive Data from json file and print on screen
+- name: json read demo
+  hosts: localhost
+  vars:
+    jsondata: "{{ lookup('file', 'Read_JSON_into_Variable.json') | from_json }}"
+  tasks:
+    - name: Print variable
+      debug:
+        var: jsondata

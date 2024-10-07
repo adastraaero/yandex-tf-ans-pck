@@ -1,0 +1,32 @@
+---
+- name: Поиск и обработка лог-файлов
+  hosts: all
+  vars:
+    mypath: "/var/log"  # Путь для поиска
+    mypattern: '*.log'  # Паттерн файлов
+  tasks:
+    - name: Найти все .log файлы
+      find:
+        paths: "{{ mypath }}"
+        hidden: true
+        recurse: true
+        file_type: file  # Ищем только файлы
+        patterns: "{{ mypattern }}"
+      register: founded_files
+
+    - name: Логировать количество найденных файлов
+      debug:
+        msg: "Найдено {{ founded_files.matched }} файлов"
+
+    - name: Вывести список файлов, если они найдены
+      debug:
+        var: founded_files.files
+      when: founded_files.matched > 0  # Условие: выводим только если есть найденные файлы
+
+#    - name: Удалить найденные файлы (опционально)
+#      file:
+#        path: "{{ item.path }}"
+#        state: absent
+#      with_items: "{{ founded_files.files }}"
+#      when: founded_files.matched > 0  # Условие: удаляем файлы только если они найдены
+

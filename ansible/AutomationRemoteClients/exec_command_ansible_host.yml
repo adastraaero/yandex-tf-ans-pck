@@ -1,0 +1,15 @@
+---
+## executing tasks on localhost
+## There 3 differents ways to do with it:
+##delegate_to: localhost - only for specifiend taks on localhost
+##connection pligun - when everything must be executed on localhost
+##local_action
+- name:
+  hosts: localhost
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
+    - name: print hostname
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }}"
