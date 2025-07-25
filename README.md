@@ -1123,9 +1123,9 @@ ls /var/log | grep ".log$" | sort
 pip 22.0.2
 
 pylibssh
-'''
+ ```
 pip install ansible-pylibssh
-'''
+ ```
 
 
 У учётной записи на коммутаторе, от которой подключается пользователь должен быть:
@@ -1136,16 +1136,16 @@ pip install ansible-pylibssh
 
 
 Ручной запуск:
-'''
+ ```
 ansible-playbook -i inventory.yml backup_huawei_switches.yml 
-'''
+ ```
 
 
 Подробная проверка подключения для 1 коммутатора
-'''
+ ```
 ansible -i inventory.yml fzp052sw -m ansible.netcommon.cli_command -a "command='display version'"
 ansible -i inventory.yml fzp052sw -m ansible.netcommon.cli_command -a "command='display version'" -vvv
-'''
+ ```
 
 
 
@@ -1153,11 +1153,11 @@ ansible -i inventory.yml fzp052sw -m ansible.netcommon.cli_command -a "command='
 
 Каждую пятницу в 23:00 с записью лога выполнения в /home/ansible/Documents/switchplaybooks/backup.log 
 
-'''
+ ```
 crontab -e
 
 0 23 * * 5 cd /home/ansible/Documents/switchplaybooks && /usr/bin/ansible-playbook -i inventory.yml backup_huawei_switches.yml >> /home/ansible/Documents/switchplaybooks/backup.log 2>&1
-'''
+ ```
 
 
 
