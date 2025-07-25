@@ -1159,13 +1159,11 @@ crontab -e
 0 23 * * 5 cd /home/ansible/Documents/switchplaybooks && /usr/bin/ansible-playbook -i inventory.yml backup_huawei_switches.yml >> /home/ansible/Documents/switchplaybooks/backup.log 2>&1
  ```
 
-
-
+### Ubuntu_22_Mysql - Пример развертывания mysql Ubuntu 22_04
+#### Полезные данные
 
 <details>
 
-### Ubuntu_22_Mysql - Пример развертывания mysql Ubuntu 22_04
-#### Полезные данные
 Операторы SQL
 * DDL(Data Definition Language) - операторы определения данных.
   * CREATE - создание объекта в базе данных
