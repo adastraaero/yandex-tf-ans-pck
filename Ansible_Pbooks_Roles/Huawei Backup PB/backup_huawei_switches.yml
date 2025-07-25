@@ -1,0 +1,28 @@
+---
+- name: Backup Huawei S5735 and s1730s configuration with real hostname
+  hosts: huawei_switches
+  gather_facts: no
+  connection: network_cli # Используем для подключения не SSH, а специальный плагин Ansible для работы с сетевыми устройствами
+
+  tasks:
+    - name: Get device sysname
+      ansible.netcommon.cli_command:
+        command: display current-configuration | include sysname  # Получаем имя устройства, чтобы сохранить его в переменную sysname_output
+      register: sysname_output
+
+    - name: Set fact for device name
+      set_fact:
+        device_sysname: "{{ sysname_output.stdout.split()[1] }}"  # Определяем новую переменную, которой присвоится второй элемент из переменной sysname_output
+      when: sysname_output.stdout is defined and sysname_output.stdout != ""  # Выполняем проверку(условие выполение ), чтобы результат вывода sysname_output был определённым и не нулевым.
+
+    - name: Get running configuration  
+      ansible.netcommon.cli_command:
+        command: display current-configuration  # Выводим текущую конфигурацию устройства и присваиваем его переменной.
+      register: config_out
+
+    - name: Save config to local file with device name
+      copy:
+        content: "{{ config_out.stdout }}"  # Указываем куда сохранять конфиг, в нашем случае это локальная папка с маской.
+        dest: "./backups/{{ device_sysname | default(inventory_hostname) }}-{{ lookup('pipe','date +%Y%m%d-%H%M%S') }}.cfg"
+      delegate_to: localhost # Выполняем сохранение на Ansible Host, без указания данной опции бекап будет пытаться сохраниться на самом коммутаторе.
+

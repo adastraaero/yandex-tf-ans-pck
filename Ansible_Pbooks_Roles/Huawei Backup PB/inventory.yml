@@ -1,0 +1,14 @@
+all:
+  children:
+    huawei_switches:
+      hosts:
+        sw_1:
+          ansible_host: 192.168.247.76 
+        sw_2:
+          ansible_host: 192.168.247.77
+
+        ansible_user: huawei_user
+        ansible_password: "huawei_user_password"
+        ansible_network_os: community.network.ce
+        ansible_connection: network_cli
+        ansible_port: 22
