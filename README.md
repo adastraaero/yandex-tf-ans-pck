@@ -1112,9 +1112,9 @@ ls /var/log | grep ".log$" | sort
 
 ## Ansible_Pbooks_Roles - плейбуки и роли для ansbile от простого к сложному с использованием Vagrant или terraform
 
-### Huawei Backup PB
+###  Switch Backup - Huawei / Cisco Catalyst / Cisco C1000 / Cisco SG300 Series
 
-Данный плейбук описывает резервное копирование коммутаторов Huawei S5735 и s1730s в локальную папку на сервер резервного копирования с использованием ansible.
+Данный плейбук описывает резервное копирование коммутаторов Huawei S5735, s1730s, Catalyst серии, Cisco C1000 серии и Cisco SG300 серии в локальную папку на сервер резервного копирования с использованием ansible.
 
 На сервере c Ansible должно быть установлено:
 
@@ -1126,6 +1126,17 @@ pylibssh
  ```
 pip install ansible-pylibssh
  ```
+Установлен expect
+
+```
+sudo apt install expect
+```
+
+Скрипт для бекапа SG серии должен быть исполняемым и быть на одном уровне с плейбуком
+
+```
+chmod +x backup_sg_expect.sh
+```
 
 
 У учётной записи на коммутаторе, от которой подключается пользователь должен быть:

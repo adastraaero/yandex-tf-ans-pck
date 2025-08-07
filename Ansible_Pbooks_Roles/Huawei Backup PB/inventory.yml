@@ -2,13 +2,99 @@ all:
   children:
     huawei_switches:
       hosts:
-        sw_1:
-          ansible_host: 192.168.247.76 
-        sw_2:
-          ansible_host: 192.168.247.77
-
-        ansible_user: huawei_user
-        ansible_password: "huawei_user_password"
+        h1sw:
+          ansible_host: 192.168.1.1 
+        h2sw:
+          ansible_host: 192.168.1.2
+      vars:
+        ansible_user: admin
+        ansible_password: "supersecret"
         ansible_network_os: community.network.ce
         ansible_connection: network_cli
         ansible_port: 22
+
+
+
+    cisco_switches:
+      hosts:
+        c1sw:
+          ansible_host: 192.168.1.3
+        c2sw:
+          ansible_host: 192.168.1.4
+      vars:
+        ansible_user: admin
+        ansible_password: "supersecret"
+        ansible_become: yes
+        ansible_become_method: enable
+        ansible_become_password: "supersecret"
+        ansible_network_os: cisco.ios.ios
+        ansible_connection: network_cli
+        ansible_ssh_common_args: '-oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostKeyAlgorithms=+ssh-rsa'
+
+
+    cisco_switches_c1000:
+      hosts:
+        c1000sw:
+          ansible_host: 192.168.1.5
+
+      vars:
+        ansible_user: backup
+        ansible_password: "Ciscobackup@qwrty120461@a"
+        ansible_become: yes
+        ansible_become_method: enable
+        ansible_become_password: "120461@bcd"
+        ansible_network_os: cisco.ios.ios
+        ansible_connection: network_cli
+
+    cisco_3750:
+      hosts:
+        Catalyst3750:
+          ansible_host: 192.168.247.88
+      vars:
+        ansible_user: backup
+        ansible_password: "Ciscobackup@qwrty120461@a"
+        ansible_become: yes
+        ansible_become_method: enable
+        ansible_become_password: "120461@bcd"
+        ansible_network_os: cisco.ios.ios
+        ansible_connection: network_cli
+        ansible_ssh_common_args: >
+          -oKexAlgorithms=+diffie-hellman-group14-sha1
+          -oHostKeyAlgorithms=+ssh-rsa
+          -oCiphers=+aes256-cbc
+
+
+    cisco_sg:
+      hosts:
+        fzp001sw:
+          ansible_host: 192.168.247.40
+        fzp005sw:
+          ansible_host: 192.168.247.15
+        fzp007sw:
+          ansible_host: 192.168.247.31
+        fzp008sw:
+          ansible_host: 192.168.247.32
+        fzp009sw:
+          ansible_host: 192.168.247.30
+        fzp010sw:
+          ansible_host: 192.168.247.42
+        fzp012sw:
+          ansible_host: 192.168.247.45
+        fzp013sw:
+          ansible_host: 192.168.247.46
+        fzp017sw:
+          ansible_host: 192.168.247.24
+        fzp025sw:
+          ansible_host: 192.168.247.61
+        fzp026sw:
+          ansible_host: 192.168.247.63
+        fzp028sw:
+          ansible_host: 192.168.247.64
+        fzp054sw:
+          ansible_host: 192.168.247.67
+        fzp060sw:
+          ansible_host: 192.168.247.52
+
+      vars:
+        ansible_user: backup
+        ansible_ssh_pass: "Ciscobackup@qwrty120461@a"

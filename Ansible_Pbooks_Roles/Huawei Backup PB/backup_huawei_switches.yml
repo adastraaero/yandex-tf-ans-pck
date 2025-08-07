@@ -23,6 +23,55 @@
     - name: Save config to local file with device name
       copy:
         content: "{{ config_out.stdout }}"  # Указываем куда сохранять конфиг, в нашем случае это локальная папка с маской.
-        dest: "./backups/{{ device_sysname | default(inventory_hostname) }}-{{ lookup('pipe','date +%Y%m%d-%H%M%S') }}.cfg"
+        dest: "./backups/huawei/{{ device_sysname | default(inventory_hostname) }}-{{ lookup('pipe','date +%Y%m%d-%H%M%S') }}.cfg"
       delegate_to: localhost # Выполняем сохранение на Ansible Host, без указания данной опции бекап будет пытаться сохраниться на самом коммутаторе.
 
+# ----------------------------
+
+- name: Backup Cisco switches
+  hosts: cisco_switches, cisco_switches_c1000, cisco_3750
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+    - name: Get full running-config
+      cisco.ios.ios_command:
+        commands:
+          - show running-config
+      register: config_out
+
+    - name: Extract hostname from config
+      set_fact:
+        device_sysname: "{{ config_out.stdout[0] | regex_search('^hostname\\s+(\\S+)', '\\1', multiline=True) }}"
+    
+    - name: Save config
+      copy:
+        content: "{{ config_out.stdout[0] }}"
+        dest: "./backups/cisco/{{ device_sysname | default(inventory_hostname) }}-{{ lookup('pipe','date +%Y%m%d-%H%M%S') }}.cfg"
+      delegate_to: localhost
+
+# --------------------------------------------------------------
+- name: Backup Cisco SG300 using expect script
+  hosts: cisco_sg
+  gather_facts: false
+  vars:
+    backup_path: "./backups/cisco_sg"
+  tasks:
+
+    - name: Ensure backup directory exists
+      ansible.builtin.file:
+        path: "{{ backup_path }}"
+        state: directory
+        mode: '0755'
+      delegate_to: localhost
+
+    - name: Run expect script to backup SG300 config
+    # Здесь мы забираем переменые из inventory и передаем их как аргументы для скрипта backup_sg_expect.sh
+      ansible.builtin.command: >
+        ./backup_sg_expect.sh {{ hostvars[inventory_hostname].ansible_host }}
+        {{ hostvars[inventory_hostname].ansible_user }}
+        {{ hostvars[inventory_hostname].ansible_ssh_pass }}
+        {{ backup_path }}/{{ inventory_hostname }}-{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}.cfg
+      args:
+        chdir: "{{ playbook_dir }}"
+      delegate_to: localhost
